@@ -34,12 +34,12 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create Release with Assets
+      uses: softprops/action-gh-release@v1
       with:
-        files: target/*.jar
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        files: build/libs/my-app-1.0.jar
     
     - name: Publish to GitHub Packages
       run: ./gradlew publish
