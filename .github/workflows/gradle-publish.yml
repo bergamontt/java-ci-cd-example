@@ -37,10 +37,6 @@ jobs:
     - name: Create Release with Assets
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
-        draft: false
-        prerelease: false
         files: build/libs/*.jar
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
