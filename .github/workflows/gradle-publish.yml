@@ -39,7 +39,7 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         name: Release ${{ github.ref_name }}
-        files: build/libs/my-app-1.0.jar
+        files: build/libs/*.jar
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
