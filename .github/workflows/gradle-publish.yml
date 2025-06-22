@@ -33,18 +33,15 @@ jobs:
     
     - name: Build with Gradle
       run: ./gradlew build
-
-    - name: Create GitHub Release and Upload JAR(s)
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
-        files: build/libs/*.jar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Publish to GitHub Packages
       run: ./gradlew publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
+    - name: Create Release with Assets
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/libs/*.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
