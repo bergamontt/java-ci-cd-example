@@ -1,4 +1,4 @@
-name: Publish package to GitHub Packages
+name: Release and publish package
 
 on:
   push:
@@ -30,18 +30,21 @@ jobs:
 
     - name: Run Checkstyle
       run: ./gradlew checkstyleMain
-    
+
+    - name: Run Tests
+      run: ./gradlew test
+
     - name: Build with Gradle
       run: ./gradlew build
-    
-    - name: Publish to GitHub Packages
-      run: ./gradlew publish
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release with Assets
       uses: softprops/action-gh-release@v1
       with:
         files: build/libs/*.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish to GitHub Packages
+      run: ./gradlew publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
